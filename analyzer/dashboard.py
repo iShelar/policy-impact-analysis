@@ -212,7 +212,7 @@ with tab1:
                 height=380,
                 xaxis=dict(tickangle=-25),
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
         with col_table:
             def risk_badge(r):
@@ -228,7 +228,7 @@ with tab1:
             display_df["Risk"] = display_df["Risk"].apply(risk_badge)
             st.dataframe(
                 display_df[["Policy", "Namespace", "Denial Rate %", "Risk"]],
-                use_container_width=True,
+                width="stretch",
                 hide_index=True,
                 height=380,
             )
@@ -255,7 +255,7 @@ with tab1:
                 yaxis=dict(range=[0, 100]),
                 legend=dict(orientation="h", yanchor="bottom", y=1.02),
             )
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width="stretch")
         else:
             st.info("No time-series data available yet.")
 
@@ -305,9 +305,9 @@ with tab2:
                 return "background-color: rgba(16,185,129,0.1)"
             return ""
 
-        styled = filtered.style.applymap(color_action, subset=["Action"])
-        styled = styled.applymap(color_staged, subset=["Staged Policy Hits"])
-        st.dataframe(styled, use_container_width=True, hide_index=True, height=500)
+        styled = filtered.style.map(color_action, subset=["Action"])
+        styled = styled.map(color_staged, subset=["Staged Policy Hits"])
+        st.dataframe(styled, width="stretch", hide_index=True, height=500)
         st.caption(f"Showing {len(filtered):,} of {len(flows_df):,} flows")
 
         staged_only = [f for f in raw_flows if f.get("pending_staged_policies")]
@@ -337,11 +337,11 @@ with tab3:
         if not suspicious_df.empty:
             st.error(f"🚨 {len(suspicious_df)} pod(s) with suspicious external egress detected!")
             st.dataframe(
-                suspicious_df.style.applymap(
+                suspicious_df.style.map(
                     lambda v: "color: #ef4444; font-weight:700" if v == "SUSPICIOUS" else "",
                     subset=["Status"],
                 ),
-                use_container_width=True,
+                width="stretch",
                 hide_index=True,
             )
             st.caption("These pods may indicate data exfiltration or misconfigured workloads.")
@@ -349,7 +349,7 @@ with tab3:
 
         if not normal_df.empty:
             st.subheader("Normal External Connections")
-            st.dataframe(normal_df, use_container_width=True, hide_index=True)
+            st.dataframe(normal_df, width="stretch", hide_index=True)
 
         fig3 = px.bar(
             external_df.head(15),
@@ -366,7 +366,7 @@ with tab3:
             paper_bgcolor="rgba(0,0,0,0)",
             xaxis=dict(tickangle=-25),
         )
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, width="stretch")
 
 # ── Tab 4: Promotion Advisor ──────────────────────────────────────────────────
 with tab4:
@@ -427,7 +427,7 @@ with tab4:
                 ))
                 fig_gauge.update_layout(height=180, margin=dict(t=30, b=10, l=10, r=10),
                                          paper_bgcolor="rgba(0,0,0,0)")
-                st.plotly_chart(fig_gauge, use_container_width=True)
+                st.plotly_chart(fig_gauge, width="stretch")
 
                 if risk == "HIGH":
                     st.error(f"❌ **Do NOT promote** — {denial_pct}% of traffic would be blocked. "
