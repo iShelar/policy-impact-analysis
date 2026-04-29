@@ -1,0 +1,18 @@
+# Expose Goldmane's gRPC API outside the cluster.
+# Use this if your Python client runs on your local machine (outside the cluster).
+# For in-cluster access, use port-forward instead (see scripts/port-forward.sh).
+apiVersion: v1
+kind: Service
+metadata:
+  name: goldmane-external
+  namespace: calico-system
+spec:
+  type: NodePort
+  selector:
+    app: goldmane
+  ports:
+    - name: grpc
+      protocol: TCP
+      port: 7443
+      targetPort: 7443
+      nodePort: 30443

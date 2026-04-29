@@ -1,0 +1,13 @@
+certs/
+*.key
+*.crt
+*.pem
+.env
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.streamlit/secrets.toml
+grpc_libs/api_pb2.py
+grpc_libs/api_pb2_grpc.py
+.claude/
