@@ -52,9 +52,11 @@ def _risk_assessment(denial_rate: float, total_flows: int) -> tuple[str, str]:
     return "HIGH", "Do NOT promote — significant traffic would be blocked"
 
 
+FLOW_COLUMNS = ["Time", "Source", "Destination", "Proto", "Action", "Packets", "Staged Policy Hits"]
+
 def flows_to_dataframe(flows: list[dict]) -> pd.DataFrame:
     if not flows:
-        return pd.DataFrame()
+        return pd.DataFrame(columns=FLOW_COLUMNS)
     rows = []
     for f in flows:
         staged_hits = f.get("pending_staged_policies", [])
