@@ -38,17 +38,29 @@ class GoldmaneClient:
             private_key=private_key,
             certificate_chain=cert_chain,
         )
+        # The cert SANs are goldmane.calico-system.svc.* — not 127.0.0.1.
+        # When port-forwarding locally we must override the expected server name.
+        options = [("grpc.ssl_target_name_override", "goldmane")]
         self._channel = grpc.secure_channel(
-            f"{cfg.goldmane_host}:{cfg.goldmane_port}", creds
+            f"{cfg.goldmane_host}:{cfg.goldmane_port}", creds, options=options
         )
         self._flows_stub = api_pb2_grpc.FlowsStub(self._channel)
         self._stats_stub = api_pb2_grpc.StatisticsStub(self._channel)
 
-    def health_check(self, timeout: float = 3.0) -> bool:
+    def health_check(self, timeout: float = 5.0) -> bool:
+        # Make a real minimal RPC call — the only true test of TLS + gRPC connectivity.
         try:
-            grpc.channel_ready_future(self._channel).result(timeout=timeout)
+            request = api_pb2.StatisticsRequest(
+                start_time_gte=-60,
+                start_time_lt=0,
+                type=api_pb2.PacketCount,
+            )
+            for _ in self._stats_stub.List(request, timeout=timeout):
+                break
             return True
-        except grpc.FutureTimeoutError:
+        except grpc.RpcError:
+            return False
+        except Exception:
             return False
 
     def get_staged_policy_stats(self, time_series: bool = True) -> list[dict]:
