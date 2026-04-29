@@ -9,3 +9,4 @@
 - Note 07: refined local demo workflow and clarified intent for this step.
 - Note 08: refined local demo workflow and clarified intent for this step.
 - Note 09: refined local demo workflow and clarified intent for this step.
+- Note 10: refined local demo workflow and clarified intent for this step.
