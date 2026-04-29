@@ -9,6 +9,11 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Activate venv if present, otherwise fall back to system Python
+if [[ -f venv/bin/activate ]]; then
+  source venv/bin/activate
+fi
+
 # Generate Python gRPC stubs if not already done
 if [[ ! -f grpc_libs/api_pb2.py ]]; then
   echo "==> Generating gRPC stubs..."
