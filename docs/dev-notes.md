@@ -24,3 +24,4 @@
 - Note 22: refined local demo workflow and clarified intent for this step.
 - Note 23: refined local demo workflow and clarified intent for this step.
 - Note 24: refined local demo workflow and clarified intent for this step.
+- Note 25: refined local demo workflow and clarified intent for this step.
