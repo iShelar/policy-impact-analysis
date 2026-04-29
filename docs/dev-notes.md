@@ -18,3 +18,4 @@
 - Note 16: refined local demo workflow and clarified intent for this step.
 - Note 17: refined local demo workflow and clarified intent for this step.
 - Note 18: refined local demo workflow and clarified intent for this step.
+- Note 19: refined local demo workflow and clarified intent for this step.
