@@ -1,2 +1,3 @@
 # Development Notes
 
+- Note 01: refined local demo workflow and clarified intent for this step.
