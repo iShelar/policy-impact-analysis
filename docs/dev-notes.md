@@ -5,3 +5,4 @@
 - Note 03: refined local demo workflow and clarified intent for this step.
 - Note 04: refined local demo workflow and clarified intent for this step.
 - Note 05: refined local demo workflow and clarified intent for this step.
+- Note 06: refined local demo workflow and clarified intent for this step.
