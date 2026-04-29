@@ -15,3 +15,4 @@
 - Note 13: refined local demo workflow and clarified intent for this step.
 - Note 14: refined local demo workflow and clarified intent for this step.
 - Note 15: refined local demo workflow and clarified intent for this step.
+- Note 16: refined local demo workflow and clarified intent for this step.
